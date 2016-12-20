@@ -143,11 +143,17 @@ public:
     void set_moving_vector(){
         if(!owner->sell_params.alert)
             return;
-        for(int i = rand()%9, n = 0; i++, n++; n<9)
-            if(owner->sell_params.view[i]->free) {
+        int n = 0;
+        int i = rand()%9;
+        while(n < 9) {
+            if (owner->sell_params.view[i % 9]->free) {
                 owner->sell_params.moving_vector[0] = i % 3 - 1;
                 owner->sell_params.moving_vector[1] = i / 3 - 1;
+                break;
             }
+            n++;
+            i++;
+        }
 
     }
 
