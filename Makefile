@@ -1,7 +1,7 @@
 CC=g++
 CFLAGS=-c -Wall
 LDFLAGS=-lGLEW -lGL -lGLU -lglut 
-SOURCES=OpnGl.cpp classes.cpp main.cpp header.h
+SOURCES= main.cpp classes.cpp DisplayLinux.cpp 
 OBJECTS=$(SOURCES:.cpp=.o)
 INCS = -I/usr/include 
 

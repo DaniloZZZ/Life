@@ -1,13 +1,17 @@
-#include "header.h"
+//#include "header.h"
+#include <iostream>
+#include <unistd.h>
 #ifdef PLATFORM_MAC
     #include <SFML/OpenGL.hpp>
     #include <SFML/Audio.hpp>
     #include <SFML/Graphics.hpp>
+#else
+    #include "hoods.cpp"
 #endif
 
 
-void DisplayMac(){
-     *AMirrow = new int[height*width];
+int DisplayMac(){
+     int width = 250, height = 250, *AMirrow = new int[height*width];
     field A(height, width);
     float n = 0.1;
     A.fill_field(n);

@@ -1,5 +1,5 @@
 #include "header.h"
-
+#include <cstdlib> 
 class data{
 public:
     int moving_vector[2];

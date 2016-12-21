@@ -1,22 +1,37 @@
-#include <OpnGl.cpp>
+//#include <OpnGl.cpp>
+
+#include "classes.cpp"
 #include <unistd.h>
+#include <iostream>
+#include <GL/glew.h>
+
+#include <GL/glut.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <GL/glext.h>
+#include <stdio.h>
 
 
-void DisplayLinux(int argc, char** argv){
+int  DisplayLinux(int argc, char** argv){
     //glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE);
     glutInitWindowSize(640  , 640);
     glutInitWindowPosition(100, 100);
-    GLFWwindow* window =  glutCreateWindow("Life");
+    glutCreateWindow("Life");
     //glutDisplayFunc(display);
-    glutReshapeFunc(reshape);       // Register callback handler for window re-size event
+    //glutReshapeFunc(reshape);       // Register callback handler for window re-size event
     //glutMainLoop();
 
     int width = 250, height = 250, *AMirrow = new int[height*width];
     field A(height, width);
     float n = 0.1;
     A.fill_field(n);
-    while (!glfwWindowShouldClose(window))
+
+    float x;
+    float dx;
+    float y;
+    float dy;
+    while (1)
     {
     // Keep runnin
         
@@ -30,11 +45,10 @@ void DisplayLinux(int argc, char** argv){
         glBegin(GL_QUADS);   // Start drawing quads
         for(int i = 0; i < width*height; i++) {
             if(AMirrow[i] == 1) {                 
-                
-                float x =-1+ 2*(i%height)
-                float y = 1+ (2*(int)((float)i / width))
-                float dx = 2./width;
-                float dy  = 2./height;
+                x = -1+ 2*(i%height);
+                y = 1+ (2*(int)((float)i / width));
+                dx = 2./width;
+                dy = 2./height;
                        // Each set of 4 vertices form a quad
                 glColor3f(1.0f, 0.0f, 0.0f); // Red
                 glVertex2f(x, y);     // Define vertices in counter-clockwise (CCW) order
@@ -49,10 +63,10 @@ void DisplayLinux(int argc, char** argv){
         usleep(20000);
         A.field_update();
         // end the current frame
-        window.display();
+        //display();
     }
-    return 0;
-    glfwDestroyWindow(window);
+    
+    //glfwDestroyWindow(window);
     delete[] AMirrow;
     return 0;
 }

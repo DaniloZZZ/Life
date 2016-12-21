@@ -1,6 +1,6 @@
-class field;
 class place;
 class sell;
+class field;
 class data;
 class brain;
 
