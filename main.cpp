@@ -4,6 +4,7 @@
     #include <SFML/OpenGL.hpp>
     #include <SFML/Audio.hpp>
     #include <SFML/Graphics.hpp>
+    #include "DisplayMac.cpp"
 #else
     #include <GL/glew.h>
     #include <GL/glut.h>
@@ -13,7 +14,7 @@
     #include <stdio.h>
    // #include "hoods.cpp"
 #endif
-//#include "DisplayMac.cpp"
+
 //#include "header.h"
 #include <unistd.h>
 #include "classes.cpp"
