@@ -11,10 +11,11 @@
 
 
 int DisplayMac(){
-     int width = 250, height = 250, *AMirrow = new int[height*width];
+   srand (time(NULL));
+    int width = 250, height = 250 ,t = 0;
     field A(height, width);
     float n = 0.1;
-    A.fill_field(n);
+    A.fill_field(n, 1000);
     // create the window
     sf::RenderWindow window(sf::VideoMode(600, 600), "My window");
     // run the program as long as the window is open
@@ -31,27 +32,36 @@ int DisplayMac(){
 
         // clear the window with black color
         window.clear(sf::Color::Black);
-        for(int i = 0; i < width*height; i++)
-            if(!A.lone[i].free)
-                AMirrow[i] = 1;
-            else
-                AMirrow[i] = 0;
-
+        sf::RectangleShape c;
+        sf::Color color;
         for(int i = 0; i < width*height; i++) {
-            if(AMirrow[i] == 1) {
-                sf::RectangleShape c;
-                c.setFillColor(sf::Color::Red);
-                c.setPosition(2*(i%height), (2*(int)((float)i / width)));
-                c.setSize(sf::Vector2f(2,-2));
-                window.draw(c);
+            if(!A.lone[i].free) {
+                if (A.lone[i].guest != nullptr) {
+                    color.r = (int) ((255 * 4) / log(pow(2.71, 4) + (A.lone[i].guest->params.age)));
+                    color.g = 10 * (int) log(1 + (A.lone[i].guest->params.age));
+                    c.setFillColor(color);
+                    c.setPosition(2 * (i % height), (2 * (int) ((float) i / width)));
+                    c.setSize(sf::Vector2f(2, -2));
+                    window.draw(c);
+                }
+                if (A.lone[i].hunter != nullptr) {
+                    color.g = (int) ((255 * 4) / log(pow(2.71, 4) + (A.lone[i].hunter->params.age)));
+                    color.r = 10 * (int) log(1 + (A.lone[i].hunter->params.age));
+                    c.setFillColor(color);
+                    c.setPosition(2 * (i % height), (2 * (int) ((float) i / width)));
+                    c.setSize(sf::Vector2f(2, -2));
+                    window.draw(c);
+                }
             }
         }
-        A.sellput(rand()%width, rand()%height);
-        usleep(20000);
+        //A.sellput(rand()%width, rand()%height);
+        usleep(10000);
         A.field_update();
         // end the current frame
         window.display();
+        t++;
+        std::cout<< t << "\n";
+
     }
-    delete[] AMirrow;
     return 0;
 }
